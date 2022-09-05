@@ -18,7 +18,7 @@ namespace RandomProj.Controllers
             _context=context;
             _logger=logger;
         }
-        [HttpGet(Name = "LogAuten")]
+        [HttpGet("GetPassword")]
         public List<Login> GetPassword(string email)
         {
             //return _context.Logins.Include(x => x.TipConcediu)
@@ -28,6 +28,37 @@ namespace RandomProj.Controllers
                 Select(x => new Login() { Parola=x.Parola, Email=x.Email })
                 .Where(x => x.Email==$"{email}").ToList();
         }
+
+        [HttpPost("Insert Login")]
+        public void InsertLogin(string email,string password)
+        {
+            _context.Logins.Add(new Login() { Parola = password, Email=email });
+            _context.SaveChanges();
+        }
+        [HttpGet("GetIdFromEmail")]
+        public List<Login> GetIdFromLogin(string email)
+        {
+           return _context.Logins
+                .Select(x => new Login() { Id=x.Id, Email=x.Email })
+                .Where(x =>x.Email==$"{email}").ToList();
+        }
+
+        [HttpGet("GetAngajatIdFromEmail")]
+        public List<Login> GetAngajatId(string email)
+        {
+            return _context.Logins
+                 .Select(x => new Login() { AngajatId=x.AngajatId, Email=x.Email })
+                 .Where(x => x.Email==$"{email}").ToList();
+        }
+
+        [HttpPatch("UpdatePassword")]
+        public void UpdatePassword(string password,int angajatid)
+        {
+             _context.Logins.Where(x => x.AngajatId==angajatid).First().Parola=password;
+            _context.SaveChanges();
+        }
+
+
 
 
 

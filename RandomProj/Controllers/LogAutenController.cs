@@ -21,7 +21,7 @@ namespace RandomProj.Controllers
         [HttpGet("GetPassword")]
         public List<Login> GetPassword(string email)
         {
-            //return _context.Logins.Include(x => x.TipConcediu)
+            //return _context.Echipas.Include(x => x.Echipa)
             //    .Select(x => new Concediu() { Id=x.Id, TipConcediu=x.TipConcediu })
             //    .Where(x => x.TipConcediu.Id==1).ToList();
             return _context.Logins.
@@ -54,7 +54,7 @@ namespace RandomProj.Controllers
         [HttpPatch("UpdatePassword")]
         public void UpdatePassword(string password,int angajatid)
         {
-             _context.Logins.Where(x => x.AngajatId==angajatid).First().Parola=password;
+            _context.Logins.Where(x => x.AngajatId==angajatid).First().Parola=password;
             _context.SaveChanges();
         }
 

@@ -40,9 +40,13 @@ namespace RandomProj.Models
         public virtual Functie? IdFunctieNavigation { get; set; }
         public virtual Login Login { get; set; } = null!;
         public virtual Angajat? Manager { get; set; }
+        public virtual Concediu? Concediu { get; set; }
         public virtual ICollection<Concediu> ConcediuAngajats { get; set; }
         public virtual ICollection<Concediu> ConcediuInlocuitors { get; set; }
         public virtual ICollection<Angajat> InverseManager { get; set; }
         public virtual ICollection<Login> Logins { get; set; }
+        public DateTime? DataInceput { get; internal set; }
+        public DateTime? DataSfarsit { get; internal set; }
+        public int ConcediuId { get; internal set; }
     }
 }

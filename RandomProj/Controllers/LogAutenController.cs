@@ -24,8 +24,9 @@ namespace RandomProj.Controllers
             //return _context.Logins.Include(x => x.TipConcediu)
             //    .Select(x => new Concediu() { Id=x.Id, TipConcediu=x.TipConcediu })
             //    .Where(x => x.TipConcediu.Id==1).ToList();
+
             return _context.Logins.
-                Select(x => new Login() { Parola=x.Parola, Email=x.Email })
+                Select(x => new Login() { Parola=x.Parola, Email=x.Email, AngajatId = x.AngajatId })
                 .Where(x => x.Email==$"{email}").ToList();
         }
 

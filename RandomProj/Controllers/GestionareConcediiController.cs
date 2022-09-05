@@ -29,9 +29,7 @@ namespace RandomProj.Controllers
         {
             var user = _context.Angajats.FirstOrDefault(x => x.Id == angajatId);
 
-            if (user.EsteAdmin == null)
-                return false;
-            else if (user.EsteAdmin == true)
+            if (user.EsteAdmin == true)
                 return true;
             else return false;
         }

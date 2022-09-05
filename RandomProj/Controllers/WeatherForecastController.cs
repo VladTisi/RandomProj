@@ -27,8 +27,9 @@ namespace RandomProj.Controllers
         {
 
 
-            return _context.Concedius.Include(x => x.TipConcediu).Select(x => new Concediu()
-            { Id=x.Id, TipConcediu=x.TipConcediu }).Where(x => x.TipConcediu.Id==1).ToList();
+            return _context.Concedius.Include(x => x.TipConcediu)
+                .Select(x => new Concediu() { Id=x.Id, TipConcediu=x.TipConcediu})
+                .Where(x => x.TipConcediu.Id==1).ToList();
         }
 
        

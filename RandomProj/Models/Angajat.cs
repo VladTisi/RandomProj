@@ -45,8 +45,5 @@ namespace RandomProj.Models
         public virtual ICollection<Concediu> ConcediuInlocuitors { get; set; }
         public virtual ICollection<Angajat> InverseManager { get; set; }
         public virtual ICollection<Login> Logins { get; set; }
-        public DateTime? DataInceput { get; internal set; }
-        public DateTime? DataSfarsit { get; internal set; }
-        public int ConcediuId { get; internal set; }
     }
 }

@@ -35,6 +35,7 @@ namespace RandomProj.Controllers
                 return true;
             else return false;
         }
+
         [HttpGet("GetManager")]
         public bool GetManager(int angajatId)
         {
@@ -45,12 +46,54 @@ namespace RandomProj.Controllers
             else 
                 return false;
         }
+
+        [HttpGet("GetConcedii")]
+        public List<Dto> GetConcedii(bool admin, bool manager,int angajatId)
+        {
+            var lista=new List<Dto>();
+            if (admin)
+            {
+                var query = from Angajat in _context.Angajats
+                            join Concediu in _context.Concedius
+                                on Angajat.Id equals Concediu.AngajatId
+                            where Concediu.StareConcediuId == 1
+                            select new Dto
+                            {
+                                Id = Concediu.Id,
+                                Nume = Angajat.Nume,
+                                Prenume = Angajat.Prenume,
+                                DataInceput = Concediu.DataInceput,
+                                DataSfarsit = Concediu.DataSfarsit
+                            };
+                lista = query.ToList();
+            }
+            else if(manager)
+            {
+                var user = _context.Angajats.FirstOrDefault(x => x.Id == angajatId);
+                var query = from Angajat in _context.Angajats
+                            join Concediu in _context.Concedius
+                                on Angajat.Id equals Concediu.AngajatId
+                            where Concediu.StareConcediuId == 1 && Angajat.IdFunctie!=3 && Angajat.IdEchipa==user.IdEchipa
+                            select new Dto
+                            {
+                                Id = Concediu.Id,
+                                Nume = Angajat.Nume,
+                                Prenume = Angajat.Prenume,
+                                DataInceput = Concediu.DataInceput,
+                                DataSfarsit = Concediu.DataSfarsit
+                            };
+                lista = query.ToList();
+            }
+            return lista;
+        }
+
         [HttpPut("AprobaConcediu")]
         public void AprobaConcediu(int concediuId)
         {
             _context.Concedius.Where(x => x.Id == concediuId).First().StareConcediuId = 2;
             _context.SaveChanges();
         }
+
         [HttpPut("RefuzaConcediu")]
         public void RefuzaConcediu(int concediuId)
         {

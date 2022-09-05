@@ -31,5 +31,8 @@ namespace RandomProj.Controllers
                 .Select(x => new Concediu() { Id=x.Id, TipConcediu=x.TipConcediu})
                 .Where(x => x.TipConcediu.Id==1).ToList();
         }
-    }
-}
+
+       
+    }   
+
+}     

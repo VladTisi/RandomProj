@@ -19,7 +19,9 @@ namespace RandomProj.Controllers
         [HttpGet("GetConcediiEchipa")]
         public List<Dto> GetConcediiEchipa(int angajatId)
         {
-            
+            var user = _context.Angajats.FirstOrDefault(x => x.Id == angajatId);
+            return _context.Angajats.Include(x => x.Concediu).Include(x => x.Functie)
+                .Select(x => new Dto { Nume = x.Nume, Prenume = x.Prenume, Functie = x.Functie.Nume, DataInceput = x.Concediu.DataInceput, DataSfarsit = x.Concediu.DataSfarsit }).ToList();
         }
         [HttpGet("GetEchipa")]
         public List<Member> GetEchipa(int angajatId)

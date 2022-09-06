@@ -7,7 +7,7 @@ namespace RandomProj.Models
     {
         public Angajat()
         {
-
+\
             ConcediuInlocuitors = new HashSet<Concediu>();
             InverseManager = new HashSet<Angajat>();
             Logins = new HashSet<Login>();

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RandomProj.Models
 {
@@ -29,15 +30,17 @@ namespace RandomProj.Models
         public int Salariu { get; set; }
         public int? Overtime { get; set; }
         public bool? SexVizbil { get; set; }
+
         public bool? SalariuVizibil { get; set; }
+        
         public int? IdFunctie { get; set; }
         public int? IdEchipa { get; set; }
         public int ZileConcediu { get; set; }
         public int ZileConcediuRamase { get; set; }
         public string? Poza { get; set; }
 
-        public virtual Echipa? IdEchipaNavigation { get; set; }
-        public virtual Functie? IdFunctieNavigation { get; set; }
+        public virtual Echipa? Echipa { get; set; }
+        public virtual Functie Functie { get; set; }
         public virtual Login Login { get; set; } = null!;
         public virtual Angajat? Manager { get; set; }
         public virtual Concediu? Concediu { get; set; }
@@ -45,5 +48,6 @@ namespace RandomProj.Models
         public virtual ICollection<Concediu> ConcediuInlocuitors { get; set; }
         public virtual ICollection<Angajat> InverseManager { get; set; }
         public virtual ICollection<Login> Logins { get; set; }
+
     }
 }

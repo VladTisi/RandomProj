@@ -97,12 +97,12 @@ namespace RandomProj.Models
                     .HasColumnName("sexVizbil")
                     .HasDefaultValueSql("((0))");
 
-                entity.HasOne(d => d.IdEchipaNavigation)
+                entity.HasOne(d => d.Echipa)
                     .WithMany(p => p.Angajats)
                     .HasForeignKey(d => d.IdEchipa)
                     .HasConstraintName("FK__Angajat__IdEchip__797309D9");
 
-                entity.HasOne(d => d.IdFunctieNavigation)
+                entity.HasOne(d => d.Functie)
                     .WithMany(p => p.Angajats)
                     .HasForeignKey(d => d.IdFunctie)
                     .HasConstraintName("FK__Angajat__IdFunct__787EE5A0");

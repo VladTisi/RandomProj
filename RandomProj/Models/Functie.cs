@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RandomProj.Models
 {
@@ -9,7 +10,6 @@ namespace RandomProj.Models
         {
             Angajats = new HashSet<Angajat>();
         }
-
         public int Id { get; set; }
         public string Nume { get; set; } = null!;
 

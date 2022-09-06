@@ -20,7 +20,7 @@ namespace RandomProj.Controllers
         public int? GetZileRamase(int angajatId)
         {
             int? ZileTotale = _context.Angajats.Where(x => x.Id == angajatId).Sum(x => EF.Functions.DateDiffMonth(x.DataAngajarii, DateTime.Now) * 2);
-            int? ZileConcediu = _context.Concedius.Where(x => x.AngajatId == angajatId).Sum(x => EF.Functions.DateDiffDay(x.DataInceput, x.DataSfarsit) - EF.Functions.DateDiffWeek(x.DataInceput, x.DataSfarsit) * 2);
+            int? ZileConcediu = _context.Concedius.Where(x => x.AngajatId == angajatId && x.StareConcediuId==2).Sum(x => EF.Functions.DateDiffDay(x.DataInceput, x.DataSfarsit) - EF.Functions.DateDiffWeek(x.DataInceput, x.DataSfarsit) * 2);
             if (ZileTotale - ZileConcediu == null)
                 return 0;
             else

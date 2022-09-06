@@ -12,7 +12,6 @@ namespace RandomProj.Models
         }
         public int Id { get; set; }
         public string Nume { get; set; } = null!;
-
         public virtual ICollection<Angajat> Angajats { get; set; }
     }
 }

@@ -17,13 +17,6 @@ namespace RandomProj.Controllers
             _logger = logger;
             _context = context;
         }
-        [HttpGet("GetAdminManager")]
-        public  List<Angajat> GetAdminManager(int angajatId)
-        {
-            return _context.Angajats
-                .Select(x => new Angajat() { Id=x.Id,EsteAdmin = x.EsteAdmin,IdFunctie=x.IdFunctie  })
-                .Where(x => x.Id == angajatId).ToList();
-        }
         [HttpGet("GetAdmin")]
         public bool GetAdmin(int angajatId)
         {
@@ -54,12 +47,15 @@ namespace RandomProj.Controllers
                 var query = from Angajat in _context.Angajats
                             join Concediu in _context.Concedius
                                 on Angajat.Id equals Concediu.AngajatId
+                            join Functie in _context.Functies
+                                on Angajat.IdFunctie equals Functie.Id
                             where Concediu.StareConcediuId == 1
                             select new Dto
                             {
                                 Id = Concediu.Id,
                                 Nume = Angajat.Nume,
                                 Prenume = Angajat.Prenume,
+                                Functie = Functie.Nume,
                                 DataInceput = Concediu.DataInceput,
                                 DataSfarsit = Concediu.DataSfarsit
                             };
@@ -71,14 +67,18 @@ namespace RandomProj.Controllers
                 var query = from Angajat in _context.Angajats
                             join Concediu in _context.Concedius
                                 on Angajat.Id equals Concediu.AngajatId
+                            join Functie in _context.Functies
+                                on Angajat.IdFunctie equals Functie.Id
                             where Concediu.StareConcediuId == 1 && Angajat.IdFunctie!=3 && Angajat.IdEchipa==user.IdEchipa
                             select new Dto
                             {
                                 Id = Concediu.Id,
                                 Nume = Angajat.Nume,
                                 Prenume = Angajat.Prenume,
+                                Functie = Functie.Nume,
                                 DataInceput = Concediu.DataInceput,
                                 DataSfarsit = Concediu.DataSfarsit
+
                             };
                 lista = query.ToList();
             }

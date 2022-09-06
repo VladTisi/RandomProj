@@ -102,7 +102,7 @@ namespace RandomProj.Models
                     .HasForeignKey(d => d.IdEchipa)
                     .HasConstraintName("FK__Angajat__IdEchip__797309D9");
 
-                entity.HasOne(d => d.IdFunctieNavigation)
+                entity.HasOne(d => d.Functie)
                     .WithMany(p => p.Angajats)
                     .HasForeignKey(d => d.IdFunctie)
                     .HasConstraintName("FK__Angajat__IdFunct__787EE5A0");

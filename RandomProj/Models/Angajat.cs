@@ -7,7 +7,7 @@ namespace RandomProj.Models
     {
         public Angajat()
         {
-            ConcediuAngajats = new HashSet<Concediu>();
+
             ConcediuInlocuitors = new HashSet<Concediu>();
             InverseManager = new HashSet<Angajat>();
             Logins = new HashSet<Login>();
@@ -37,7 +37,8 @@ namespace RandomProj.Models
         public string? Poza { get; set; }
 
         public virtual Echipa? IdEchipaNavigation { get; set; }
-        public virtual Functie? IdFunctieNavigation { get; set; }
+
+        public virtual Functie? Functie { get; set; }
         public virtual Login Login { get; set; } = null!;
         public virtual Angajat? Manager { get; set; }
         public virtual Concediu? Concediu { get; set; }

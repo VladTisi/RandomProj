@@ -17,10 +17,10 @@ namespace RandomProj.Controllers
             _context = context;
         }
         [HttpGet("GetConcediiEchipa")]
-        public List<Dto> GetConcediiEchipa(int angajatId)
-        {
+        //public List<Dto> GetConcediiEchipa(int angajatId)
+        //{
             
-        }
+        //}
         [HttpGet("GetEchipa")]
         public List<Member> GetEchipa(int angajatId)
         {

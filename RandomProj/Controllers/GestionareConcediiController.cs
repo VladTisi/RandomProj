@@ -39,48 +39,24 @@ namespace RandomProj.Controllers
         }
 
         [HttpGet("GetConcedii")]
-        public List<Dto> GetConcedii(bool admin, bool manager,int angajatId)
+        public List<Dto> GetConcedii(int angajatId)
         {
-            var lista=new List<Dto>();
-            if (admin)
-            {
-                var query = from Angajat in _context.Angajats
-                            join Concediu in _context.Concedius
-                                on Angajat.Id equals Concediu.AngajatId
-                            join Functie in _context.Functies
-                                on Angajat.IdFunctie equals Functie.Id
-                            where Concediu.StareConcediuId == 1
-                            select new Dto
-                            {
-                                Id = Concediu.Id,
-                                Nume = Angajat.Nume,
-                                Prenume = Angajat.Prenume,
-                                Functie = Functie.Nume,
-                                DataInceput = Concediu.DataInceput,
-                                DataSfarsit = Concediu.DataSfarsit
-                            };
-                lista = query.ToList();
+            var lista = new List<Dto>();
+            var user = _context.Angajats.FirstOrDefault(x => x.Id == angajatId);
+            if (user.EsteAdmin==true)
+            { 
+            return _context.Concedius
+                .Include(x => x.Angajat)
+                .Include(x => x.Angajat.Functie)
+                .Select(x => new Dto {Id=x.Id,Nume=x.Angajat.Nume,Prenume=x.Angajat.Prenume,Functie=x.Angajat.Functie.Nume,DataInceput=x.DataInceput,DataSfarsit=x.DataSfarsit }).ToList();
             }
-            else if(manager)
+            else if(user.IdFunctie==3)
             {
-                var user = _context.Angajats.FirstOrDefault(x => x.Id == angajatId);
-                var query = from Angajat in _context.Angajats
-                            join Concediu in _context.Concedius
-                                on Angajat.Id equals Concediu.AngajatId
-                            join Functie in _context.Functies
-                                on Angajat.IdFunctie equals Functie.Id
-                            where Concediu.StareConcediuId == 1 && Angajat.IdFunctie!=3 && Angajat.IdEchipa==user.IdEchipa
-                            select new Dto
-                            {
-                                Id = Concediu.Id,
-                                Nume = Angajat.Nume,
-                                Prenume = Angajat.Prenume,
-                                Functie = Functie.Nume,
-                                DataInceput = Concediu.DataInceput,
-                                DataSfarsit = Concediu.DataSfarsit
-
-                            };
-                lista = query.ToList();
+                return _context.Concedius
+                .Include(x => x.Angajat)
+                .Include(x => x.Angajat.Functie)
+                .Where(x => x.StareConcediuId == 1 && x.Angajat.IdFunctie!=3 && x.Angajat.IdEchipa==user.IdEchipa)
+                .Select(x => new Dto { Id = x.Id, Nume = x.Angajat.Nume, Prenume = x.Angajat.Prenume, Functie = x.Angajat.Functie.Nume, DataInceput = x.DataInceput, DataSfarsit = x.DataSfarsit }).ToList();
             }
             return lista;
         }
@@ -101,4 +77,5 @@ namespace RandomProj.Controllers
            
     }
 }
+
 

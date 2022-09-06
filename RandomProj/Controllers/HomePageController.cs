@@ -81,8 +81,36 @@ namespace RandomProj.Controllers
 
              }
 
+        [HttpGet("GetDateAngajat")]
+
+        public List<Angajat> GetAllDataAngajat(int Id)
+        {
+            return _context.Angajats.
+                Select(x => new Angajat() { Id = x.Id, Nume = x.Nume, Prenume = x.Prenume, LoginId = x.LoginId, DataAngajarii = x.DataAngajarii, DataNasterii = x.DataNasterii, Cnp = x.Cnp, SerieBuletin = x.SerieBuletin, NrBuletin = x.NrBuletin, NumarTelefon = x.NumarTelefon, EsteAdmin = x.EsteAdmin, ManagerId = x.ManagerId, Sex = x.Sex, Salariu = x.Salariu, Overtime = x.Overtime, SexVizbil = x.SexVizbil, SalariuVizibil = x.SalariuVizibil, IdFunctie = x.IdFunctie, IdEchipa = x.IdEchipa, ZileConcediu = x.ZileConcediu, ZileConcediuRamase = x.ZileConcediuRamase, Poza = x.Poza }).
+                Where(x => x.Id == Id).ToList();
 
         }
+
+        [HttpGet("GetAdminFunctieFromAngajat")]
+        public List<Angajat> GetAdminFunctieFromAngajat(int angajatid)
+        {
+
+            return _context.Angajats
+                .Select(x => new Angajat() { EsteAdmin = x.EsteAdmin, IdFunctie = x.IdFunctie, Id = x.Id })
+                .Where(x => x.Id == angajatid).ToList();
+        }
+
+        [HttpGet("GetPoza")]
+
+        public List<Angajat> GetPoza(int Id)
+
+        {
+             return _context.Angajats.
+                Select(x => new Angajat() { Id = x.Id, Poza = x.Poza }).
+                Where(x => x.Id == Id).ToList();
+
+        }
+    }
 
 
 

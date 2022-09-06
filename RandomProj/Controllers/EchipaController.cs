@@ -17,10 +17,14 @@ namespace RandomProj.Controllers
             _context = context;
         }
         [HttpGet("GetConcediiEchipa")]
-        //public List<Dto> GetConcediiEchipa(int angajatId)
-        //{
-            
-        //}
+        public List<Dto> GetConcediiEchipa()
+        {
+           //var user = _context.Angajats.FirstOrDefault(x => x.Id == angajatId);
+            return _context.Concedius
+                .Include(x => x.Angajat)
+                .Include(y => y.Angajat.Functie)
+                .Select(x => new Dto { Id=x.Angajat.Id,Nume = x.Angajat.Nume, Prenume = x.Angajat.Prenume, Functie = x.Angajat.Functie.Nume, DataInceput = x.DataInceput, DataSfarsit = x.DataSfarsit }).ToList();
+        }
         [HttpGet("GetEchipa")]
         public List<Member> GetEchipa(int angajatId)
         {

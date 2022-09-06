@@ -138,7 +138,7 @@ namespace RandomProj.Models
                 entity.Property(e => e.StareConcediuId).HasColumnName("stareConcediuId");
 
                 entity.HasOne(d => d.Angajat)
-                    .WithMany(p => p.ConcediuAngajats)
+                    .WithMany(p => p.Concedius)
                     .HasForeignKey(d => d.AngajatId)
                     .HasConstraintName("FK__Concediu__angaja__7F2BE32F");
 

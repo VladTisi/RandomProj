@@ -23,9 +23,17 @@
 
         public int IdFunctieFromAngajat{ get; set; }
 
-       
-       
+    }
 
+    public class AngajatConcediu
+    {
+        public int IdAngajatFromAngajat { get; set; }
+
+        public DateTime DataInceput { get; set; }
+
+        public DateTime DataSfarsit { get; set; }
+
+        public int? StareConcediuId  { get; set; }
     }
     public class Member
     {

@@ -55,7 +55,7 @@ namespace RandomProj.Controllers
 
             [HttpPatch("UpdateTelfPoza")]
 
-            public void UpdateDateDeUtilizator(string? numarTelefon, string? email, string? poza, int Id)
+            public void UpdateDateDeUtilizator(string? numarTelefon,  int Id)
 
             {
                 var myObj = _context.Angajats.Where(x => x.Id == Id).FirstOrDefault();
@@ -65,7 +65,7 @@ namespace RandomProj.Controllers
                 }
                               
                 myObj.NumarTelefon = String.IsNullOrEmpty(numarTelefon) ? myObj.NumarTelefon : numarTelefon;
-                myObj.Poza = String.IsNullOrEmpty(poza) ? myObj.Poza : poza;
+               // myObj.Poza = String.IsNullOrEmpty(poza) ? myObj.Poza : poza;
 
                 _context.SaveChanges();
             }

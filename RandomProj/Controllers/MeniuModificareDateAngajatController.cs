@@ -88,7 +88,7 @@ namespace RandomProj.Controllers
         public List<Angajat> GetPoza( int Id)
         {
             return _context.Angajats.
-                Select(x => new Angajat() { Poza = x.Poza}).
+                Select(x => new Angajat() { Poza = x.Poza, Id = x.Id }).
                 Where(x => x.Id == Id).ToList();
 
         }

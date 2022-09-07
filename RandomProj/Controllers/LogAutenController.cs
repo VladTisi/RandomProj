@@ -30,8 +30,8 @@ namespace RandomProj.Controllers
                 .Where(x => x.Email==$"{email}").ToList();
         }
 
-        [HttpPost("Insert Login")]
-        public void InsertLogin(string email,string password)
+        [HttpPost("InsertLogin")]
+        public void InsertLogin(string email,  string password)
         {
             _context.Logins.Add(new Login() { Parola = password, Email=email });
             _context.SaveChanges();

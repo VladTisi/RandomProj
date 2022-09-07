@@ -28,12 +28,12 @@ namespace RandomProj.Controllers
         }
 
         [HttpGet("GetNumePrenumeFunctiaDataAngajarii")]
-        public List<AngajatFunctie> GetNumePrenumeFunctiaDataAngajarii()
+        public List<Member> GetNumePrenumeFunctiaDataAngajarii()
         {
 
             return _context.Angajats
                 .Include(x => x.Functie)
-                .Select(x => new AngajatFunctie() {IdFunctieFromAngajat=x.IdFunctie.HasValue ? x.IdFunctie.Value : 0 , IdFunctieFromFunctie = x.IdFunctie.HasValue ? x.IdFunctie.Value : 0, Nume=x.Nume, Prenume=x.Prenume,Functie = x.Functie.Nume }).ToList();
+                .Select(x => new Member() { Nume=x.Nume, Prenume=x.Prenume,Functia = x.Functie.Nume,DataAngajarii=x.DataAngajarii }).ToList();
         }
 
 

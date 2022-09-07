@@ -17,13 +17,15 @@ namespace RandomProj.Controllers
             _context = context;
         }
         [HttpGet("GetConcediiEchipa")]
-        public List<Dto> GetConcediiEchipa()
+        public List<Dto> GetConcediiEchipa(int angajatId)
         {
-           //var user = _context.Angajats.FirstOrDefault(x => x.Id == angajatId);
+            //var user = _context.Angajats.FirstOrDefault(x => x.Id == angajatId);
+            var user = _context.Angajats.FirstOrDefault(x => x.Id == angajatId);
             return _context.Concedius
                 .Include(x => x.Angajat)
-                .Include(y => y.Angajat.Functie)
-                .Select(x => new Dto { Id=x.Angajat.Id,Nume = x.Angajat.Nume, Prenume = x.Angajat.Prenume, Functie = x.Angajat.Functie.Nume, DataInceput = x.DataInceput, DataSfarsit = x.DataSfarsit }).ToList();
+                .Include(x => x.Angajat.Functie)
+                .Where(x=>x.Angajat.IdEchipa==user.IdEchipa && x.StareConcediuId==2 )
+                .Select(x => new Dto {Nume = x.Angajat.Nume, Prenume = x.Angajat.Prenume, Functie = x.Angajat.Functie.Nume, DataInceput = x.DataInceput, DataSfarsit = x.DataSfarsit }).ToList();
         }
         [HttpGet("GetEchipa")]
         public List<Member> GetEchipa(int angajatId)

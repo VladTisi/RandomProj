@@ -30,7 +30,7 @@ namespace RandomProj.Controllers
             else if (user.EsteAdmin == true)
                 return true;
             else return false;
-            
+
 
         }
 
@@ -41,7 +41,7 @@ namespace RandomProj.Controllers
             return _context.Angajats.
                 Select(x => new Angajat() { Nume = x.Nume, Prenume = x.Prenume, Id = x.Id, EsteAdmin = x.EsteAdmin }).
                 Where(x => x.EsteAdmin == true).ToList();
-                
+
         }
 
         [HttpGet("GetAllNames")]
@@ -62,14 +62,14 @@ namespace RandomProj.Controllers
 
         }
 
-       
+
         [HttpGet("GetMembriEchipa")]
 
         public List<Angajat> GetMembri(int echipaId)
         {
             return _context.Angajats.
-                Select( x=> new Angajat() { Nume = x.Nume, Prenume = x.Prenume, IdEchipa = x.IdEchipa})
-                .Where(x=> x.IdEchipa == echipaId ).ToList();
+                Select(x => new Angajat() { Nume = x.Nume, Prenume = x.Prenume, IdEchipa = x.IdEchipa })
+                .Where(x => x.IdEchipa == echipaId).ToList();
 
         }
 
@@ -85,21 +85,21 @@ namespace RandomProj.Controllers
 
         [HttpGet("GetPozaAngajat")]
 
-        public List<Angajat> GetPoza( int Id)
+        public List<Angajat> GetPoza(int Id)
         {
             return _context.Angajats.
                 Select(x => new Angajat() { Poza = x.Poza, Id = x.Id }).
                 Where(x => x.Id == Id).ToList();
 
         }
-                       
+
 
         [HttpGet("GetEchipe")]
 
         public List<Echipa> GetEchipe()
         {
             return _context.Echipas.
-                Select(x => new Echipa() { Id= x.Id, Nume = x.Nume }).ToList();
+                Select(x => new Echipa() { Id = x.Id, Nume = x.Nume }).ToList();
 
         }
 
@@ -113,35 +113,42 @@ namespace RandomProj.Controllers
         }
 
 
-      
-        [HttpPatch("UpdateDate")]
 
-        public void UpdateDateFromAdmin(string? nume, string? prenume,  DateTime? dataAngajarii, string? numarTelefon, int? salariu, int? overtime, int? idEchipa, int? idFunctie, string? poza, int Id)
+        [HttpPost("UpdateDate")]
+
+        public void UpdateDateFromAdmin(string? nume, string? prenume, DateTime? dataAngajarii, string? numarTelefon, int? salariu, int? overtime, int? idEchipa, int? idFunctie, string? poza, int Id)
         {
-           
+
             var myObj = _context.Angajats.Where(x => x.Id == Id).FirstOrDefault();
             if (myObj == null)
-                {
-                return;            
+            {
+                return;
+            }
+            //[FromBody] Angajat ang)
+            {
+                //_context.Angajats.Where(x => x.Id == ang.Id).FirstOrDefault().Poza = ang.pozaN
+
+
+
+
+                myObj.Nume = String.IsNullOrEmpty(nume) ? myObj.Nume : nume;
+                myObj.Prenume = String.IsNullOrEmpty(prenume) ? myObj.Prenume : prenume;
+                myObj.DataAngajarii = dataAngajarii.HasValue ? dataAngajarii.Value : myObj.DataAngajarii;
+                myObj.NumarTelefon = String.IsNullOrEmpty(numarTelefon) ? myObj.NumarTelefon : numarTelefon;
+                myObj.Salariu = (int)(salariu.HasValue ? salariu : myObj.Salariu);
+                myObj.Overtime = (int)(overtime.HasValue ? overtime : myObj.Overtime);
+                myObj.IdEchipa = (int)(idEchipa.HasValue ? idEchipa : myObj.IdEchipa);
+                myObj.IdFunctie = (int)(idFunctie.HasValue ? idFunctie : myObj.IdFunctie);
+                myObj.Poza = String.IsNullOrEmpty(poza) ? myObj.Poza : poza;
+
+                _context.SaveChanges();
             }
 
-            myObj.Nume = String.IsNullOrEmpty(nume) ? myObj.Nume : nume;
-            myObj.Prenume = String.IsNullOrEmpty(prenume) ? myObj.Prenume : prenume;
-            myObj.DataAngajarii = dataAngajarii.HasValue ? dataAngajarii.Value : myObj.DataAngajarii;
-            myObj.NumarTelefon = String.IsNullOrEmpty(numarTelefon) ? myObj.NumarTelefon : numarTelefon;
-            myObj.Salariu = (int)(salariu.HasValue ?  salariu : myObj.Salariu);
-            myObj.Overtime = (int)(overtime.HasValue ? overtime : myObj.Overtime);
-            myObj.IdEchipa = (int)(idEchipa.HasValue ? idEchipa : myObj.IdEchipa);
-            myObj.IdFunctie = (int)(idFunctie.HasValue ? idFunctie : myObj.IdFunctie);
-            myObj.Poza = String.IsNullOrEmpty(poza) ? myObj.Poza : poza;
 
-            _context.SaveChanges();
+
+
         }
 
 
-
-
     }
-
-
 }

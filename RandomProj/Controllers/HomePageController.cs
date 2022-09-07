@@ -110,8 +110,16 @@ namespace RandomProj.Controllers
                 Where(x => x.Id == Id).ToList();
 
         }
+        //[HttpPut("UpdatePoza")]
+
+        //public void UpdatePozaAngajat([FromBody] Angajat ang)
+        //{
+        //    _context.Angajats.Where(x => x.Id == ang.Id).FirstOrDefault().Poza = ang.PozaTest;
+        //    _context.SaveChanges();
+        //}
+
+
     }
 
 
-
-    }
+}

@@ -22,6 +22,6 @@ namespace RandomProj.Models
         public virtual Angajat? Inlocuitor { get; set; }
         public virtual StareConcediu? StareConcediu { get; set; }
         public virtual TipConcediu? TipConcediu { get; set; }
-        public virtual ICollection<Angajat> Angajats { get; set; }
+        
     }
 }

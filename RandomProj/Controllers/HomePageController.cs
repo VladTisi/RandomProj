@@ -16,7 +16,7 @@ namespace RandomProj.Controllers
             _logger = logger;
         }
 
-        [HttpPatch("UpdateZile")]
+        [HttpPost("UpdateZile")]
 
         public void UpdateZileCO(int Id)
         {
@@ -29,7 +29,7 @@ namespace RandomProj.Controllers
         }
 
 
-        [HttpPatch("UpdateZileCORamase")]
+        [HttpPost("UpdateZileCORamase")]
 
         public void UpdateZileCORamase(int Id)
         {
@@ -53,9 +53,9 @@ namespace RandomProj.Controllers
             }
         }
 
-            [HttpPatch("UpdateTelfPoza")]
+            [HttpPost("UpdateTelf")]
 
-            public void UpdateDateDeUtilizator(string? numarTelefon, string? email, string? poza, int Id)
+            public void UpdateDateDeUtilizator(string? numarTelefon,  int Id)
 
             {
                 var myObj = _context.Angajats.Where(x => x.Id == Id).FirstOrDefault();
@@ -65,13 +65,29 @@ namespace RandomProj.Controllers
                 }
                               
                 myObj.NumarTelefon = String.IsNullOrEmpty(numarTelefon) ? myObj.NumarTelefon : numarTelefon;
-                myObj.Poza = String.IsNullOrEmpty(poza) ? myObj.Poza : poza;
+               // myObj.Poza = String.IsNullOrEmpty(poza) ? myObj.Poza : poza;
 
                 _context.SaveChanges();
             }
 
+        [HttpPost("UpdatePoza")]
 
-            [HttpPatch("UpdateEmail")]
+        public void UpdatePozaUtilizator(string? poza, int Id)
+
+        {
+            var myObj = _context.Angajats.Where(x => x.Id == Id).FirstOrDefault();
+            if (myObj == null)
+            {
+                return;
+            }
+
+            myObj.Poza = String.IsNullOrEmpty(poza) ? myObj.Poza : poza;
+
+            _context.SaveChanges();
+        }
+
+
+        [HttpPost("UpdateEmail")]
 
             public void UpdateEmail(string email, int Id)
             {

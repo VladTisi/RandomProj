@@ -64,14 +64,15 @@ namespace RandomProj.Controllers
         [HttpPut("AprobaConcediu")]
         public void AprobaConcediu(int concediuId)
         {
-            _context.Concedius.Where(x => x.Id == concediuId).First().StareConcediuId = 2;
+            //_context.Concedius.Where(x => x.Id == concediuId).FirstOrDefault().StareConcediuId = 2;
+            _context.Concedius.Where(x => x.Id == concediuId).FirstOrDefault().StareConcediuId = 2;
             _context.SaveChanges();
         }
 
         [HttpPut("RefuzaConcediu")]
         public void RefuzaConcediu(int concediuId)
         {
-            _context.Concedius.Where(x => x.Id == concediuId).First().StareConcediuId = 3;
+            _context.Concedius.Where(x => x.Id == concediuId).FirstOrDefault().StareConcediuId = 3;
             _context.SaveChanges();
         }
            

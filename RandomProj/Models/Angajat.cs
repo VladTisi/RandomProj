@@ -38,11 +38,10 @@ namespace RandomProj.Models
         public int? ZileConcediuRamase { get; set; } = null!;
         public string? Poza { get; set; }
 
-        public virtual Echipa? Echipa { get; set; } = null!;
-        public virtual Functie? Functie { get; set; } = null!;
-        public virtual Login? Login { get; set; } = null!;
-        public virtual Angajat? Manager { get; set; } = null!;
-
+        public virtual Echipa? Echipa { get; set; }
+        public virtual Functie Functie { get; set; }
+        public virtual Login Login { get; set; } = null!;
+        public virtual Angajat? Manager { get; set; }
         public virtual ICollection<Concediu> Concedius { get; set; }
         public virtual ICollection<Concediu> ConcediuInlocuitors { get; set; }
         public virtual ICollection<Angajat> InverseManager { get; set; }

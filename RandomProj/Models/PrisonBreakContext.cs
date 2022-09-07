@@ -123,7 +123,6 @@ namespace RandomProj.Models
             {
                 entity.ToTable("Concediu");
 
-                entity.Property(e => e.AngajatId).HasColumnName("angajatId");
 
                 entity.Property(e => e.Comentarii).HasMaxLength(1);
 
@@ -141,6 +140,7 @@ namespace RandomProj.Models
                     .WithMany(p => p.Concedius)
                     .HasForeignKey(d => d.AngajatId)
                     .HasConstraintName("FK__Concediu__angaja__7F2BE32F");
+
 
                 entity.HasOne(d => d.Inlocuitor)
                     .WithMany(p => p.ConcediuInlocuitors)

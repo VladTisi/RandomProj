@@ -6,6 +6,7 @@
         public string Nume { get; set; } = null!;
         public string Prenume { get; set; } = null!;
         public string Functie { get; set; } = null!;
+        public string Status { get; set; } = null!;
         public DateTime? DataInceput { get; set; }
         public DateTime? DataSfarsit { get; set; }
 

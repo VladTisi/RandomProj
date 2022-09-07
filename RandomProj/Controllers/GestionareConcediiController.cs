@@ -48,15 +48,18 @@ namespace RandomProj.Controllers
             return _context.Concedius
                 .Include(x => x.Angajat)
                 .Include(x => x.Angajat.Functie)
-                .Select(x => new Dto {Id=x.Id,Nume=x.Angajat.Nume,Prenume=x.Angajat.Prenume,Functie=x.Angajat.Functie.Nume,DataInceput=x.DataInceput,DataSfarsit=x.DataSfarsit }).ToList();
+                .Include(x => x.StareConcediu)
+                .Where(x => x.StareConcediuId == 1 && x.StareConcediu.Id == x.StareConcediuId)
+                .Select(x => new Dto {Id=x.Id,Nume=x.Angajat.Nume,Prenume=x.Angajat.Prenume,Functie=x.Angajat.Functie.Nume, Status = x.StareConcediu.Nume, DataInceput=x.DataInceput,DataSfarsit=x.DataSfarsit }).ToList();
             }
             else if(user.IdFunctie==3)
             {
                 return _context.Concedius
                 .Include(x => x.Angajat)
                 .Include(x => x.Angajat.Functie)
-                .Where(x => x.StareConcediuId == 1 && x.Angajat.IdFunctie!=3 && x.Angajat.IdEchipa==user.IdEchipa)
-                .Select(x => new Dto { Id = x.Id, Nume = x.Angajat.Nume, Prenume = x.Angajat.Prenume, Functie = x.Angajat.Functie.Nume, DataInceput = x.DataInceput, DataSfarsit = x.DataSfarsit }).ToList();
+                .Include(x=> x.StareConcediu)
+                .Where(x => x.StareConcediuId == 1 && x.Angajat.IdFunctie!=3 && x.StareConcediu.Id==x.StareConcediuId && x.Angajat.IdEchipa==user.IdEchipa)
+                .Select(x => new Dto { Id = x.Id, Nume = x.Angajat.Nume, Prenume = x.Angajat.Prenume, Functie = x.Angajat.Functie.Nume,Status=x.StareConcediu.Nume, DataInceput = x.DataInceput, DataSfarsit = x.DataSfarsit }).ToList();
             }
             return lista;
         }
@@ -64,15 +67,15 @@ namespace RandomProj.Controllers
         [HttpPut("AprobaConcediu")]
         public void AprobaConcediu(int concediuId)
         {
-            //_context.Concedius.Where(x => x.Id == concediuId).FirstOrDefault().StareConcediuId = 2;
-            _context.Concedius.Where(x => x.Id == concediuId).FirstOrDefault().StareConcediuId = 2;
+            _context.Concedius.Where(x => x.Id == concediuId).FirstOrDefault<Concediu>().StareConcediuId=2;
+            //.Select(x=>new Concediu() { Id=x.Id,TipConcediuId=x.TipConcediuId,DataInceput=x.DataInceput,DataSfarsit=x.DataSfarsit,InlocuitorId=x.InlocuitorId,Comentarii=x.Comentarii,StareConcediuId=x.StareConcediuId,AngajatId=x.AngajatId})
             _context.SaveChanges();
         }
 
         [HttpPut("RefuzaConcediu")]
         public void RefuzaConcediu(int concediuId)
         {
-            _context.Concedius.Where(x => x.Id == concediuId).FirstOrDefault().StareConcediuId = 3;
+            _context.Concedius.Where(x => x.Id == concediuId).FirstOrDefault<Concediu>().StareConcediuId = 3;
             _context.SaveChanges();
         }
            

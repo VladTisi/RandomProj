@@ -72,16 +72,16 @@ namespace RandomProj.Controllers
 
         [HttpPost("UpdatePoza")]
 
-        public void UpdatePozaUtilizator(string? poza, int Id)
+        public void UpdatePozaUtilizator([FromBody]Angajat obj)
 
         {
-            var myObj = _context.Angajats.Where(x => x.Id == Id).FirstOrDefault();
+            var myObj = _context.Angajats.Where(x => x.Id == obj.Id).FirstOrDefault();
             if (myObj == null)
             {
                 return;
             }
 
-            myObj.Poza = String.IsNullOrEmpty(poza) ? myObj.Poza : poza;
+            myObj.Poza = obj.Poza;
 
             _context.SaveChanges();
         }

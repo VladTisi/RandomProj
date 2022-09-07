@@ -22,7 +22,7 @@
         public int IdFunctie { get; set; }
 
 
-        public int IdFunctieFromAngajat{ get; set; }
+        public int IdFunctieFromAngajat { get; set; }
 
     }
 
@@ -34,7 +34,7 @@
 
         public DateTime DataSfarsit { get; set; }
 
-        public int? StareConcediuId  { get; set; }
+        public int? StareConcediuId { get; set; }
     }
     public class Member
     {
@@ -42,5 +42,12 @@
         public string Prenume { get; set; } = null!;
         public string Functia { get; set; } = null!;
         public DateTime DataAngajarii { get; set; }
+    }
+
+    public class UpdatePozaTest
+    {
+        public int ID { get; set; } 
+
+        public string PozaTest { get; set; }
     }
 }

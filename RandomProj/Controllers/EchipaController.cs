@@ -7,7 +7,7 @@ namespace RandomProj.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class EchipaController : Controller
+    public class EchipaController : ControllerBase
     {
         PrisonBreakContext _context;
         private readonly ILogger<EchipaController> _logger;

@@ -7,7 +7,7 @@ namespace RandomProj.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CerereConcediuController : Controller
+    public class CerereConcediuController : ControllerBase
     {
         PrisonBreakContext _context;
         private readonly ILogger<CerereConcediuController> _logger;

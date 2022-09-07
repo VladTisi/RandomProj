@@ -5,7 +5,10 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace RandomProj.Controllers
 {
-    public class HomePageController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+
+    public class HomePageController : ControllerBase
     {
         PrisonBreakContext _context;
         private readonly ILogger<HomePageController> _logger;
@@ -72,16 +75,16 @@ namespace RandomProj.Controllers
 
         [HttpPost("UpdatePoza")]
 
-        public void UpdatePozaUtilizator(string? poza, int Id)
+        public void UpdatePozaUtilizator([FromBody]Angajat obj)
 
         {
-            var myObj = _context.Angajats.Where(x => x.Id == Id).FirstOrDefault();
+            var myObj = _context.Angajats.Where(x => x.Id == obj.Id).FirstOrDefault();
             if (myObj == null)
             {
                 return;
             }
 
-            myObj.Poza = String.IsNullOrEmpty(poza) ? myObj.Poza : poza;
+            myObj.Poza = obj.Poza;
 
             _context.SaveChanges();
         }
@@ -126,8 +129,16 @@ namespace RandomProj.Controllers
                 Where(x => x.Id == Id).ToList();
 
         }
+        //[HttpPut("UpdatePoza")]
+
+        //public void UpdatePozaAngajat([FromBody] Angajat ang)
+        //{
+        //    _context.Angajats.Where(x => x.Id == ang.Id).FirstOrDefault().Poza = ang.PozaTest;
+        //    _context.SaveChanges();
+        //}
+
+
     }
 
 
-
-    }
+}

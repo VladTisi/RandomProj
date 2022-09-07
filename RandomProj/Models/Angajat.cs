@@ -34,8 +34,8 @@ namespace RandomProj.Models
         
         public int? IdFunctie { get; set; }
         public int? IdEchipa { get; set; }
-        public int ZileConcediu { get; set; }
-        public int ZileConcediuRamase { get; set; }
+        public int? ZileConcediu { get; set; } = null!;
+        public int? ZileConcediuRamase { get; set; } = null!;
         public string? Poza { get; set; }
 
         public virtual Echipa? Echipa { get; set; }

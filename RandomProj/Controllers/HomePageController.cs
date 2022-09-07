@@ -5,7 +5,10 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace RandomProj.Controllers
 {
-    public class HomePageController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+
+    public class HomePageController : ControllerBase
     {
         PrisonBreakContext _context;
         private readonly ILogger<HomePageController> _logger;

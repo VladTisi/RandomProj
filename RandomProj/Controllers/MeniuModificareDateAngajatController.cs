@@ -6,7 +6,7 @@ namespace RandomProj.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MeniuModificareDateAngajatController : Controller
+    public class MeniuModificareDateAngajatController : ControllerBase
     {
 
 

@@ -54,11 +54,11 @@ namespace RandomProj.Controllers
 
         [HttpGet("GetIdEchipa")]
 
-        public List<Angajat> GetIdEchipa(int Id)
+        public int GetIdEchipa(int Id)
         {
-            return _context.Angajats.
-                Select(x => new Angajat() { IdEchipa = x.IdEchipa, Id = x.Id }).
-                Where(x => x.Id == Id).ToList();
+            return (int)_context.Angajats.Where(x => x.Id == Id)
+                .Select(x => x.IdEchipa).ToList().FirstOrDefault();
+
 
         }
 

@@ -26,7 +26,7 @@ namespace RandomProj.Models
         public bool? EsteAdmin { get; set; }
         public int? ManagerId { get; set; }
         public string? Sex { get; set; }
-        public int Salariu { get; set; }
+        public int? Salariu { get; set; }
         public int? Overtime { get; set; }
         public bool? SexVizbil { get; set; }
 

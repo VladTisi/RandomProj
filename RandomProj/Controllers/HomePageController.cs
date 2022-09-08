@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RandomProj.Models;
+using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Security.Cryptography.Xml;
 
@@ -86,7 +87,6 @@ namespace RandomProj.Controllers
             //}
 
             myObj.Poza = obj.Poza;
-
             _context.SaveChanges();
         }
 
@@ -109,6 +109,14 @@ namespace RandomProj.Controllers
                 Select(x => new Angajat() { Id = x.Id, Nume = x.Nume, Prenume = x.Prenume, LoginId = x.LoginId, DataAngajarii = x.DataAngajarii, DataNasterii = x.DataNasterii, Cnp = x.Cnp, SerieBuletin = x.SerieBuletin, NrBuletin = x.NrBuletin, NumarTelefon = x.NumarTelefon, EsteAdmin = x.EsteAdmin, ManagerId = x.ManagerId, Sex = x.Sex, Salariu = x.Salariu, Overtime = x.Overtime, SexVizbil = x.SexVizbil, SalariuVizibil = x.SalariuVizibil, IdFunctie = x.IdFunctie, IdEchipa = x.IdEchipa, ZileConcediu = x.ZileConcediu, ZileConcediuRamase = x.ZileConcediuRamase, Poza = x.Poza }).
                 Where(x => x.Id == Id).ToList();
                 
+        }
+        [HttpGet("GetAngajat")]
+
+        public Angajat GetAngajat(int Id)
+        {
+            var MyObj=_context.Angajats.Where(x => x.Id == Id).FirstOrDefault();
+            return MyObj;
+
         }
         [HttpGet("GetFunctieFromId")]
         public List<Functie> GetFunctieFromId(int Id)
@@ -149,7 +157,14 @@ namespace RandomProj.Controllers
                 Where(x => x.Id == Id).ToList();
 
         }
-      
+        [HttpGet("GetId")]
+
+        public int GetId(string nume, string prenume)
+        {
+            int angajatId= _context.Angajats.Where(x => x.Nume == nume && x.Prenume == prenume).FirstOrDefault().Id;
+            return angajatId;
+        }
+
 
     }
 

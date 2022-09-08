@@ -31,11 +31,38 @@ namespace RandomProj.Controllers
         }
 
         [HttpPost("InsertAccount")]
-        public void InsertLogin(string nume, string prenume, int loginid, DateTime data_angajarii, DateTime data_nasterii, string CNP, string Serie, string NrBuletin, string NumarTelefon, bool esteAdmin, string Sex, int salariu, int overtime, int IdFunctie, int IdEchipa)
+        public void InsertAccount(string nume, string prenume, int loginid, DateTime data_angajarii, DateTime data_nasterii, string CNP, string Serie, string NrBuletin, string NumarTelefon, bool esteAdmin, string Sex, int salariu, int overtime, int IdFunctie, int IdEchipa)
         {
             _context.Angajats.Add(new Angajat() { Nume = nume, Prenume = prenume, LoginId = loginid, DataAngajarii = data_angajarii, DataNasterii = data_nasterii, Cnp = CNP, SerieBuletin = Serie, NrBuletin = NrBuletin, NumarTelefon = NumarTelefon, EsteAdmin = esteAdmin, Sex = Sex, Salariu = salariu, Overtime = overtime, IdFunctie = IdFunctie, IdEchipa = IdEchipa });
             _context.SaveChanges();
         }
+        [HttpPost("InsertLogin")]
+        public void InsertLogin(string email, string parola)
+        {
+            _context.Logins.Add(new Login() { Email = email, Parola = parola });
+            _context.SaveChanges();
+        }
+        [HttpGet("GetIdLogin")]
+        public List<Login> GetIdLogin(string email)
+        {
+            return _context.Logins.Select(x => new Login() { Id=x.Id, Email=x.Email }).Where(x => x.Email==email).ToList();
+            
+        }
+        [HttpPost("UpdateAngajatId")]
+        public void UpdateAngajatId(int id,int angajatid)
+        {
+            _context.Logins.Where(x => x.Id==id).FirstOrDefault().AngajatId=angajatid;
+            _context.SaveChanges();
+
+        }
+        [HttpGet("GetAngajatIdFromLoginId")]
+        public List<Angajat> GetAngajatIdFromLoginId(int loginid)
+        {
+            return _context.Angajats.Select(x => new Angajat() { Id=x.Id , LoginId=x.LoginId }).Where(x => x.LoginId==loginid).ToList();
+        }
+
+
+
 
     }
 }

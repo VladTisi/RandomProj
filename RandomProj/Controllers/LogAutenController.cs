@@ -52,7 +52,7 @@ namespace RandomProj.Controllers
                  .Where(x => x.Email==$"{email}").ToList();
         }
 
-        [HttpPatch("UpdatePassword")]
+        [HttpPost("UpdatePassword")]
         public void UpdatePassword(string password,int angajatid)
         {
             _context.Logins.Where(x => x.AngajatId==angajatid).First().Parola=password;

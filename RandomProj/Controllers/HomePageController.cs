@@ -81,6 +81,11 @@ namespace RandomProj.Controllers
 
         {
             var myObj = _context.Angajats.Where(x => x.Id == obj.Id).FirstOrDefault();
+            //if (myObj == null)
+            //{
+            //    return;
+            //}
+
             myObj.Poza = obj.Poza;
             _context.SaveChanges();
         }

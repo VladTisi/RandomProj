@@ -83,6 +83,16 @@ namespace RandomProj.Controllers
 
         }
 
+        [HttpGet("GetDateleAngajat")]
+
+        public Angajat GetAllDataAngajati(int Id)
+        {
+            return _context.Angajats.
+                Select(x => new Angajat() { Id = x.Id, Nume = x.Nume, Prenume = x.Prenume, LoginId = x.LoginId, DataAngajarii = x.DataAngajarii, DataNasterii = x.DataNasterii, Cnp = x.Cnp, SerieBuletin = x.SerieBuletin, NrBuletin = x.NrBuletin, NumarTelefon = x.NumarTelefon, EsteAdmin = x.EsteAdmin, ManagerId = x.ManagerId, Sex = x.Sex, Salariu = x.Salariu, Overtime = x.Overtime, SexVizbil = x.SexVizbil, SalariuVizibil = x.SalariuVizibil, IdFunctie = x.IdFunctie, IdEchipa = x.IdEchipa, ZileConcediu = x.ZileConcediu, ZileConcediuRamase = x.ZileConcediuRamase, Poza = x.Poza }).
+                Where(x => x.Id == Id).ToList().FirstOrDefault();
+
+        }
+
         [HttpGet("GetPozaAngajat")]
 
         public List<Angajat> GetPoza(int Id)
@@ -116,39 +126,42 @@ namespace RandomProj.Controllers
 
         [HttpPost("UpdateDate")]
 
-        public void UpdateDateFromAdmin(string? nume, string? prenume, DateTime? dataAngajarii, string? numarTelefon, int? salariu, int? overtime, int? idEchipa, int? idFunctie, string? poza, int Id)
+        public void UpdateDateFromAdmin([FromBody]Angajat ang)
+            //string? nume, string? prenume, DateTime? dataAngajarii, string? numarTelefon, int? salariu, int? overtime, int? idEchipa, int? idFunctie, string? poza, int Id)
         {
 
-            var myObj = _context.Angajats.Where(x => x.Id == Id).FirstOrDefault();
+            var myObj = _context.Angajats.Where(x => x.Id == ang.Id).FirstOrDefault();
             if (myObj == null)
             {
                 return;
             }
-            //[FromBody] Angajat ang)
+            else 
             {
-                //_context.Angajats.Where(x => x.Id == ang.Id).FirstOrDefault().Poza = ang.pozaN
-
-
-
-
-                myObj.Nume = String.IsNullOrEmpty(nume) ? myObj.Nume : nume;
-                myObj.Prenume = String.IsNullOrEmpty(prenume) ? myObj.Prenume : prenume;
-                myObj.DataAngajarii = dataAngajarii.HasValue ? dataAngajarii.Value : myObj.DataAngajarii;
-                myObj.NumarTelefon = String.IsNullOrEmpty(numarTelefon) ? myObj.NumarTelefon : numarTelefon;
-                myObj.Salariu = (int)(salariu.HasValue ? salariu : myObj.Salariu);
-                myObj.Overtime = (int)(overtime.HasValue ? overtime : myObj.Overtime);
-                myObj.IdEchipa = (int)(idEchipa.HasValue ? idEchipa : myObj.IdEchipa);
-                myObj.IdFunctie = (int)(idFunctie.HasValue ? idFunctie : myObj.IdFunctie);
-                myObj.Poza = String.IsNullOrEmpty(poza) ? myObj.Poza : poza;
+                             
+                myObj.Nume = String.IsNullOrEmpty(ang.Nume) ? myObj.Nume : ang.Nume;
+                myObj.Prenume = String.IsNullOrEmpty(ang.Prenume) ? myObj.Prenume : ang.Prenume;
+                myObj.DataAngajarii = ang.DataAngajarii.HasValue ? ang.DataAngajarii.Value : myObj.DataAngajarii;
+                myObj.NumarTelefon = String.IsNullOrEmpty(ang.NumarTelefon) ? myObj.NumarTelefon : ang.NumarTelefon;
+                myObj.Salariu = (int)(ang.Salariu.HasValue ? ang.Salariu : myObj.Salariu);
+                myObj.Overtime = (int)(ang.Overtime.HasValue ? ang.Overtime : myObj.Overtime);
+                myObj.IdEchipa = (int)(ang.IdEchipa.HasValue ? ang.IdEchipa : myObj.IdEchipa);
+                myObj.IdFunctie = (int)(ang.IdFunctie.HasValue ? ang.IdFunctie : myObj.IdFunctie);
+                myObj.Poza = String.IsNullOrEmpty(ang.Poza) ? myObj.Poza : ang.Poza;
 
                 _context.SaveChanges();
             }
 
-
-
-
         }
 
+        //[HttpPost("UpdateEmail")]
 
+        //public void UpdateEmail()
+
+        //{
+        //        _context.Logins.Where(x => x.AngajatId == Id).FirstOrDefault().Email = email;
+        //        _context.SaveChanges();
+
+            
+        //}
     }
 }

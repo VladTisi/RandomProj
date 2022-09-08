@@ -17,7 +17,7 @@ namespace RandomProj.Models
         public string Nume { get; set; } = null!;
         public string Prenume { get; set; } = null!;
         public int LoginId { get; set; }
-        public DateTime DataAngajarii { get; set; }
+        public DateTime? DataAngajarii { get; set; }
         public DateTime DataNasterii { get; set; }
         public string Cnp { get; set; } = null!;
         public string SerieBuletin { get; set; } = null!;
@@ -26,7 +26,7 @@ namespace RandomProj.Models
         public bool? EsteAdmin { get; set; }
         public int? ManagerId { get; set; }
         public string Sex { get; set; } = null!;
-        public int Salariu { get; set; }
+        public int? Salariu { get; set; }
         public int? Overtime { get; set; }
         public bool? SexVizbil { get; set; }
 

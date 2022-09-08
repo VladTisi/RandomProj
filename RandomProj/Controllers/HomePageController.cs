@@ -74,7 +74,7 @@ namespace RandomProj.Controllers
                 _context.SaveChanges();
             }
 
-        [HttpPost("UpdatePoza")]
+        [HttpPut("UpdatePoza")]
 
         public void UpdatePozaUtilizator([FromBody]Angajat obj)
 

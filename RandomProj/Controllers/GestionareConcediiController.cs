@@ -38,6 +38,21 @@ namespace RandomProj.Controllers
                 return false;
         }
 
+        [HttpGet("GetConcediuRefuzat")]
+
+        public List<Concediuedt> GetConcediuRefuzat(int angajatId)
+        {
+            var lista = new List<Concediuedt>();
+            var user = _context.Angajats.FirstOrDefault(x => x.Id == angajatId);
+            return _context.Concedius
+                   .Include(x => x.Angajat)
+                   .Include(x => x.Angajat.Functie)
+                   .Include(x => x.StareConcediu)
+                   .Where(x => x.StareConcediuId == 3 && x.StareConcediu.Id == x.StareConcediuId)
+                   .Select(x => new Concediuedt { Id = x.Id, Nume = x.Angajat.Nume, Prenume = x.Angajat.Prenume, Functie = x.Angajat.Functie.Nume, Status = x.StareConcediu.Nume, DataInceput = x.DataInceput, DataSfarsit = x.DataSfarsit }).ToList();
+            return lista;
+        }
+
         [HttpGet("GetConcedii")]
         public List<Concediuedt> GetConcedii(int angajatId)
         {

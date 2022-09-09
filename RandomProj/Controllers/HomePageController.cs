@@ -74,7 +74,24 @@ namespace RandomProj.Controllers
 
                 _context.SaveChanges();
             }
+        [HttpGet("GetUtilizatori")]
+        public List<Angajat> GetAllDataAngajat()
+        {
+            return _context.Angajats.
+                Select(x => new Angajat() { Id = x.Id, Nume = x.Nume + " " + x.Prenume })
+                .ToList();
 
+        }
+        [HttpGet("GetMembriEchipa")]
+        public List<Angajat> GetAllMembers(int angajatId)
+        {
+            var user = _context.Angajats.Where(x => x.Id == angajatId).FirstOrDefault();
+            return _context.Angajats
+                .Where(x=>x.IdEchipa==user.IdEchipa)
+                .Select(x => new Angajat() { Id = x.Id, Nume = x.Nume + " " + x.Prenume })
+                .ToList();
+
+        }
         [HttpPut("UpdatePoza")]
 
         public void UpdatePozaUtilizator([FromBody]Angajat obj)

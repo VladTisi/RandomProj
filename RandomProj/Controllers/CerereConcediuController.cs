@@ -38,5 +38,14 @@ namespace RandomProj.Controllers
         {
             _context.Concedius.Add(new Concediu { TipConcediuId = TipConcediuId, DataInceput = Inceput, DataSfarsit = Sfarsit, StareConcediuId = 1, AngajatId = angajatId });
         }
+
+        //[HttpGet("GetAdminIdfunctie")]
+
+        //public Angajat GetAdminIdfunctie(int Id)
+        //{
+        //    var MyObj = _context.Angajats.Where(x => x.Id == Id).FirstOrDefault();
+        //    return MyObj;
+
+        //}
     }
 }

@@ -68,7 +68,7 @@ namespace RandomProj.Controllers
         public List<Angajat> GetMembri(int echipaId)
         {
             return _context.Angajats.
-                Select(x => new Angajat() { Nume = x.Nume, Prenume = x.Prenume, IdEchipa = x.IdEchipa })
+                Select(x => new Angajat() { Nume = x.Nume, Prenume = x.Prenume, IdEchipa = x.IdEchipa,Id = x.Id })
                 .Where(x => x.IdEchipa == echipaId).ToList();
 
         }

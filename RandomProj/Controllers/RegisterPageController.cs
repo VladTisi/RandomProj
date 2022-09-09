@@ -15,19 +15,19 @@ namespace RandomProj.Controllers
 
         public RegisterPageController(PrisonBreakContext context, ILogger<RegisterPageController> logger)
         {
-            _context = context;
-            _logger = logger;
+            _context=context;
+            _logger=logger;
         }
 
         [HttpGet("GetIdNumeFromEchipa")]
         public List<Echipa> GetIdNumeFromEchipa()
         {
-            return _context.Echipas.Select(x => new Echipa() { Id = x.Id, Nume = x.Nume }).ToList();
+            return _context.Echipas.Select(x => new Echipa() { Id=x.Id, Nume=x.Nume }).ToList();
         }
         [HttpGet("GetIdNumeFromFunctie")]
         public List<Functie> GetIdNumeFromFunctie()
         {
-            return _context.Functies.Select(x => new Functie() { Id = x.Id, Nume = x.Nume }).ToList();
+            return _context.Functies.Select(x => new Functie() { Id=x.Id, Nume=x.Nume }).ToList();
         }
         [HttpGet("GetAngajatIdFromNumePrenume")]
         public int GetAngajatIdFromNumePrenume(string nume,string prenume)
@@ -65,6 +65,7 @@ namespace RandomProj.Controllers
         {
             return _context.Angajats.Select(x => new Angajat() { Id=x.Id , LoginId=x.LoginId }).Where(x => x.LoginId==loginid).ToList();
         }
+
 
 
 

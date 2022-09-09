@@ -29,11 +29,16 @@ namespace RandomProj.Controllers
         {
             return _context.Functies.Select(x => new Functie() { Id=x.Id, Nume=x.Nume }).ToList();
         }
+        [HttpGet("GetAngajatIdFromNumePrenume")]
+        public int GetAngajatIdFromNumePrenume(string nume,string prenume)
+        {
+            return _context.Angajats.Where(x => x.Nume==nume && x.Prenume==prenume).Select(x => x.Id).ToList().FirstOrDefault();
+        }
 
         [HttpPost("InsertAccount")]
         public void InsertAccount(string nume, string prenume, int loginid, DateTime data_angajarii, DateTime data_nasterii, string CNP, string Serie, string NrBuletin, string NumarTelefon, bool esteAdmin, string Sex, int salariu, int overtime, int IdFunctie, int IdEchipa)
         {
-            _context.Angajats.Add(new Angajat() { Nume = nume, Prenume=prenume, LoginId=loginid, DataAngajarii = data_angajarii,DataNasterii=data_nasterii, Cnp=CNP, SerieBuletin=Serie, NrBuletin=NrBuletin, NumarTelefon=NumarTelefon, EsteAdmin=esteAdmin,Sex=Sex,Salariu=salariu,Overtime=overtime,IdFunctie=IdFunctie,IdEchipa=IdEchipa });
+            _context.Angajats.Add(new Angajat() { Nume = nume, Prenume = prenume, LoginId = loginid, DataAngajarii = data_angajarii, DataNasterii = data_nasterii, Cnp = CNP, SerieBuletin = Serie, NrBuletin = NrBuletin, NumarTelefon = NumarTelefon, EsteAdmin = esteAdmin, Sex = Sex, Salariu = salariu, Overtime = overtime, IdFunctie = IdFunctie, IdEchipa = IdEchipa, ZileConcediu=0, ZileConcediuRamase=0 }) ;
             _context.SaveChanges();
         }
         [HttpPost("InsertLogin")]

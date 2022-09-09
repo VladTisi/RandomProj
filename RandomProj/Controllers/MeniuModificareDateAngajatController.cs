@@ -142,7 +142,7 @@ namespace RandomProj.Controllers
                 myObj.Prenume = String.IsNullOrEmpty(ang.Prenume) ? myObj.Prenume : ang.Prenume;
                 myObj.DataAngajarii = ang.DataAngajarii.HasValue ? ang.DataAngajarii.Value : myObj.DataAngajarii;
                 myObj.NumarTelefon = String.IsNullOrEmpty(ang.NumarTelefon) ? myObj.NumarTelefon : ang.NumarTelefon;
-                myObj.Salariu = (int)(ang.Salariu.HasValue ? ang.Salariu : myObj.Salariu);
+                myObj.Salariu = /*(int)(ang.Salariu.HasValue ? ang.Salariu : myObj.Salariu);*/ang.Salariu;
                 myObj.Overtime = (int)(ang.Overtime.HasValue ? ang.Overtime : myObj.Overtime);
                 myObj.IdEchipa = (int)(ang.IdEchipa.HasValue ? ang.IdEchipa : myObj.IdEchipa);
                 myObj.IdFunctie = (int)(ang.IdFunctie.HasValue ? ang.IdFunctie : myObj.IdFunctie);

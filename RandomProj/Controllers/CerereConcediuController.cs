@@ -29,7 +29,7 @@ namespace RandomProj.Controllers
         [HttpGet("GetZileRamaseMedical")]
         public int GetZileMedical(int angajatId)
         {
-            int ZileTotale = 20;
+            int ZileTotale = 90;
             int ZileConcediu = (int)_context.Concedius.Where(x => ((DateTime)x.DataInceput).Year == DateTime.Now.Year && x.TipConcediuId==2 && x.StareConcediuId==2).Sum(x => EF.Functions.DateDiffDay(x.DataInceput, x.DataSfarsit)+1 - EF.Functions.DateDiffWeek(x.DataInceput, x.DataSfarsit) * 2);
             if (ZileTotale - ZileConcediu == null)
                 return 0;

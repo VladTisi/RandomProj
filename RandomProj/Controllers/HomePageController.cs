@@ -58,28 +58,30 @@ namespace RandomProj.Controllers
             }
         }
 
-            [HttpPost("UpdateTelf")]
+        [HttpPost("UpdateTelf")]
 
-            public void UpdateDateDeUtilizator(string? numarTelefon,  int Id)
+        public void UpdateDateDeUtilizator(string? numarTelefon, int Id)
 
+        {
+            var myObj = _context.Angajats.Where(x => x.Id == Id).FirstOrDefault();
+            if (myObj == null)
             {
-                var myObj = _context.Angajats.Where(x => x.Id == Id).FirstOrDefault();
-                if (myObj == null)
-                {
-                    return;
-                }
-                              
-                myObj.NumarTelefon = String.IsNullOrEmpty(numarTelefon) ? myObj.NumarTelefon : numarTelefon;
-               // myObj.Poza = String.IsNullOrEmpty(poza) ? myObj.Poza : poza;
-
-                _context.SaveChanges();
+                return;
             }
+
+            myObj.NumarTelefon = String.IsNullOrEmpty(numarTelefon) ? myObj.NumarTelefon : numarTelefon;
+            // myObj.Poza = String.IsNullOrEmpty(poza) ? myObj.Poza : poza;
+
+            _context.SaveChanges();
+        }
         [HttpGet("GetUtilizatori")]
         public List<Angajat> GetAllDataAngajat()
         {
+
             return _context.Angajats.
-                Select(x => new Angajat() { Id = x.Id, Nume = x.Nume + " " + x.Prenume })
-                .ToList();
+            Select(x => new Angajat() { Id = x.Id, Nume = x.Nume + " " + x.Prenume })
+            .ToList();
+
 
         }
         [HttpGet("GetMembriEchipa")]
@@ -87,14 +89,14 @@ namespace RandomProj.Controllers
         {
             var user = _context.Angajats.Where(x => x.Id == angajatId).FirstOrDefault();
             return _context.Angajats
-                .Where(x=>x.IdEchipa==user.IdEchipa)
+                .Where(x => x.IdEchipa == user.IdEchipa)
                 .Select(x => new Angajat() { Id = x.Id, Nume = x.Nume + " " + x.Prenume })
                 .ToList();
 
         }
         [HttpPut("UpdatePoza")]
 
-        public void UpdatePozaUtilizator([FromBody]Angajat obj)
+        public void UpdatePozaUtilizator([FromBody] Angajat obj)
 
         {
             var myObj = _context.Angajats.Where(x => x.Id == obj.Id).FirstOrDefault();
@@ -110,13 +112,13 @@ namespace RandomProj.Controllers
 
         [HttpPost("UpdateEmail")]
 
-            public void UpdateEmail(string email, int Id)
-            {
+        public void UpdateEmail(string email, int Id)
+        {
 
             _context.Logins.Where(x => x.AngajatId == Id).FirstOrDefault().Email = email;
             _context.SaveChanges();
 
-             }
+        }
 
         [HttpGet("GetDateAngajat")]
 
@@ -125,13 +127,13 @@ namespace RandomProj.Controllers
             return _context.Angajats.
                 Select(x => new Angajat() { Id = x.Id, Nume = x.Nume, Prenume = x.Prenume, LoginId = x.LoginId, DataAngajarii = x.DataAngajarii, DataNasterii = x.DataNasterii, Cnp = x.Cnp, SerieBuletin = x.SerieBuletin, NrBuletin = x.NrBuletin, NumarTelefon = x.NumarTelefon, EsteAdmin = x.EsteAdmin, ManagerId = x.ManagerId, Sex = x.Sex, Salariu = x.Salariu, Overtime = x.Overtime, SexVizbil = x.SexVizbil, SalariuVizibil = x.SalariuVizibil, IdFunctie = x.IdFunctie, IdEchipa = x.IdEchipa, ZileConcediu = x.ZileConcediu, ZileConcediuRamase = x.ZileConcediuRamase, Poza = x.Poza }).
                 Where(x => x.Id == Id).ToList();
-                
+
         }
         [HttpGet("GetAngajat")]
 
         public Angajat GetAngajat(int Id)
         {
-            var MyObj=_context.Angajats.Where(x => x.Id == Id).FirstOrDefault();
+            var MyObj = _context.Angajats.Where(x => x.Id == Id).FirstOrDefault();
             return MyObj;
 
         }
@@ -169,21 +171,44 @@ namespace RandomProj.Controllers
         public List<Angajat> GetPoza(int Id)
 
         {
-             return _context.Angajats.
-                Select(x => new Angajat() { Id = x.Id, Poza = x.Poza }).
-                Where(x => x.Id == Id).ToList();
+            return _context.Angajats.
+               Select(x => new Angajat() { Id = x.Id, Poza = x.Poza }).
+               Where(x => x.Id == Id).ToList();
 
         }
         [HttpGet("GetId")]
 
         public int GetId(string nume, string prenume)
         {
-            int angajatId= _context.Angajats.Where(x => x.Nume == nume && x.Prenume == prenume).FirstOrDefault().Id;
+            int angajatId = _context.Angajats.Where(x => x.Nume == nume && x.Prenume == prenume).FirstOrDefault().Id;
             return angajatId;
         }
 
+        [HttpGet("GetFindByName")]
 
-    }
+        public List<Angajat> findByNameOrSurname(string textnume)
+        {
+            return _context.Angajats.Where(x => x.Nume.StartsWith(textnume) || x.Prenume.StartsWith(textnume)).
+                Select(x => new Angajat
+                {
+                    Id = x.Id,
+                    Nume = x.Nume,
+                    Prenume = x.Prenume
+                }).Distinct().ToList();
+        }
+    [HttpGet("GetFindByNameForManager")]
+
+    public List<Angajat> findByNameOrSurnameForManager(string textnume, int IdEchipa)
+    {
+        return _context.Angajats.Where(x => (x.Nume.StartsWith(textnume) || x.Prenume.StartsWith(textnume)) && x.IdEchipa == IdEchipa).
+            Select(x => new Angajat
+            {
+                Id = x.Id,
+                Nume = x.Nume,
+                Prenume = x.Prenume
+            }).Distinct().ToList();
+    } }
 
 
 }
+

@@ -20,12 +20,43 @@ namespace RandomProj.Controllers
         public int? GetZileRamase(int angajatId)
         {
             int? ZileTotale = _context.Angajats.Where(x => x.Id == angajatId).Sum(x => EF.Functions.DateDiffMonth(x.DataAngajarii, DateTime.Now) * 2);
-            int? ZileConcediu = _context.Concedius.Where(x => x.AngajatId == angajatId && x.StareConcediuId==2).Sum(x => EF.Functions.DateDiffDay(x.DataInceput, x.DataSfarsit)+1 - EF.Functions.DateDiffWeek(x.DataInceput, x.DataSfarsit) * 2);
+            int? ZileConcediu = _context.Concedius.Where(x => x.AngajatId == angajatId&& x.TipConcediuId==1 && x.StareConcediuId==2).Sum(x => EF.Functions.DateDiffDay(x.DataInceput, x.DataSfarsit) - EF.Functions.DateDiffWeek(x.DataInceput, x.DataSfarsit) * 2);
             if (ZileTotale - ZileConcediu == null)
                 return 0;
             else
                 return ZileTotale - ZileConcediu;
         }
+        [HttpGet("GetZileRamaseMedical")]
+        public int GetZileMedical(int angajatId)
+        {
+            int ZileTotale = 20;
+            int ZileConcediu = (int)_context.Concedius.Where(x => ((DateTime)x.DataInceput).Year == DateTime.Now.Year && x.TipConcediuId==2 && x.StareConcediuId==2).Sum(x => EF.Functions.DateDiffDay(x.DataInceput, x.DataSfarsit)+1 - EF.Functions.DateDiffWeek(x.DataInceput, x.DataSfarsit) * 2);
+            if (ZileTotale - ZileConcediu == null)
+                return 0;
+            else
+                return ZileTotale - ZileConcediu;
+        }
+        [HttpGet("GetZileNeplatite")]
+        public int GetZileNeplatite(int angajatId)
+        {
+            int ZileTotale = 365;
+            int ZileConcediu = (int)_context.Concedius.Where(x => ((DateTime)x.DataInceput).Year == DateTime.Now.Year && x.TipConcediuId == 3 && x.StareConcediuId == 2).Sum(x => EF.Functions.DateDiffDay(x.DataInceput, x.DataSfarsit)+1 - EF.Functions.DateDiffWeek(x.DataInceput, x.DataSfarsit) * 2);
+            if (ZileTotale - ZileConcediu == null)
+                return 0;
+            else
+                return ZileTotale - ZileConcediu;
+        }
+        [HttpGet("GetZileDeces")]
+        public int GetZileDeces(int angajatId)
+        {
+            int ZileTotale = 10;
+            int ZileConcediu = (int)_context.Concedius.Where(x => ((DateTime)x.DataInceput).Year == DateTime.Now.Year && x.TipConcediuId == 4 && x.StareConcediuId == 2).Sum(x => EF.Functions.DateDiffDay(x.DataInceput, x.DataSfarsit) + 1 - EF.Functions.DateDiffWeek(x.DataInceput, x.DataSfarsit) * 2);
+            if (ZileTotale - ZileConcediu == null)
+                return 0;
+            else
+                return ZileTotale - ZileConcediu;
+        }
+
 
         [HttpGet("GetZileConcediu")]
         public int GetZileConcediu(DateTime Inceput , DateTime Sfarsit)

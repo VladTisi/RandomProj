@@ -79,9 +79,9 @@ namespace RandomProj.Controllers
             return ZileConcediu;
         }
         [HttpPost("InsertConcediu")]
-        public void InsertConcediu(int TipConcediuId,DateTime Inceput,DateTime Sfarsit,int angajatId,int inlocuitorId)
+        public void InsertConcediu(int TipConcediuId,DateTime Inceput,DateTime Sfarsit,string comentarii,int angajatId,int inlocuitorId)
         {
-            _context.Concedius.Add(new Concediu { TipConcediuId = TipConcediuId, DataInceput = Inceput, DataSfarsit = Sfarsit, StareConcediuId = 1, AngajatId = angajatId, InlocuitorId=inlocuitorId });
+            _context.Concedius.Add(new Concediu { TipConcediuId = TipConcediuId, DataInceput = Inceput, DataSfarsit = Sfarsit, StareConcediuId = 1, Comentarii = comentarii, AngajatId = angajatId, InlocuitorId=inlocuitorId });
             _context.SaveChanges();
         }
 

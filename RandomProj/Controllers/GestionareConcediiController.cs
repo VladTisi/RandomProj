@@ -93,7 +93,12 @@ namespace RandomProj.Controllers
             }
             return lista;
         }
-
+        [HttpGet("GetComentariu")]
+        public string GetComentariu(int concediuId)
+        {
+            return _context.Concedius.Where(x => x.Id == concediuId).Select(x=> x.Comentarii).FirstOrDefault();
+           
+        }
         [HttpPut("AprobaConcediu")]
         public void AprobaConcediu(int concediuId)
         {

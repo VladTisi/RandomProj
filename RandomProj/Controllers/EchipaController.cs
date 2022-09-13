@@ -24,7 +24,7 @@ namespace RandomProj.Controllers
             return _context.Concedius
                 .Include(x => x.Angajat)
                 .Include(x => x.Angajat.Functie)
-                .Where(x=>x.Angajat.IdEchipa==user.IdEchipa && x.StareConcediuId==2 )
+                .Where(x=>x.Angajat.IdEchipa==user.IdEchipa && x.StareConcediuId==2 && (x.DataInceput>=DateTime.Now || x.DataSfarsit>=DateTime.Now) )
                 .Select(x => new Dto {Nume = x.Angajat.Nume, Prenume = x.Angajat.Prenume, Functie = x.Angajat.Functie.Nume, DataInceput = x.DataInceput, DataSfarsit = x.DataSfarsit }).ToList();
         }
         [HttpGet("GetEchipa")]
@@ -33,7 +33,7 @@ namespace RandomProj.Controllers
             var user = _context.Angajats.FirstOrDefault(x => x.Id == angajatId);
             return _context.Angajats.Include(x => x.Functie)
                 .Where(x => x.IdEchipa == user.IdEchipa && x.IdFunctie==x.Functie.Id)
-                .Select(x => new Member { Nume = x.Nume, Prenume = x.Prenume, Functia = x.Functie.Nume }).ToList();
+                .Select(x => new Member { Nume = x.Nume, Prenume = x.Prenume, Functia = x.Functie.Nume, DataAngajarii=x.DataAngajarii }).ToList();
          
         }
     }

@@ -55,7 +55,7 @@
         public string Nume { get; set; } = null!;
         public string Prenume { get; set; } = null!;
         public string Functia { get; set; } = null!;
-        public DateTime DataAngajarii { get; set; }
+        public DateTime? DataAngajarii { get; set; }
     }
 
     public class UpdatePozaTest

@@ -61,7 +61,7 @@ namespace RandomProj.Controllers
         {
             int este = _context.Concedius
                 .Include(x => x.TipConcediu)
-                .Where(x => (x.AngajatId == angajatId && x.DataInceput < Sfarsit && x.DataSfarsit > Sfarsit && (x.StareConcediuId==2 || x.StareConcediuId==1)) || (x.AngajatId == angajatId && x.DataInceput < Inceput && x.DataSfarsit > Inceput && (x.StareConcediuId == 2 || x.StareConcediuId == 1))).Select(x => x.Id)
+                .Where(x => (x.AngajatId == angajatId && x.DataInceput <= Sfarsit && x.DataSfarsit >= Sfarsit && (x.StareConcediuId==2 || x.StareConcediuId==1)) || (x.AngajatId == angajatId && x.DataInceput <= Inceput && x.DataSfarsit >= Inceput && (x.StareConcediuId == 2 || x.StareConcediuId == 1))).Select(x => x.Id)
                 .FirstOrDefault();
 
             if (este == 0)

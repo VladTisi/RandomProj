@@ -186,8 +186,11 @@ namespace RandomProj.Controllers
 
         [HttpGet("GetFindByName")]
 
-        public List<Angajat> findByNameOrSurname(string textnume)
+        public List<Angajat> findByNameOrSurname(string? textnume)
         {
+            if (String.IsNullOrEmpty(textnume))
+
+                return null;
             return _context.Angajats.Where(x => x.Nume.StartsWith(textnume) || x.Prenume.StartsWith(textnume)).
                 Select(x => new Angajat
                 {
@@ -197,8 +200,11 @@ namespace RandomProj.Controllers
         }
     [HttpGet("GetFindByNameForManager")]
 
-    public List<Angajat> findByNameOrSurnameForManager(string textnume, int IdEchipa)
+    public List<Angajat> findByNameOrSurnameForManager(string? textnume, int IdEchipa)
     {
+            if (String.IsNullOrEmpty(textnume))
+            
+                return null; 
         return _context.Angajats.Where(x => (x.Nume.StartsWith(textnume) || x.Prenume.StartsWith(textnume)) && x.IdEchipa == IdEchipa).
             Select(x => new Angajat
             {

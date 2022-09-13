@@ -192,8 +192,7 @@ namespace RandomProj.Controllers
                 Select(x => new Angajat
                 {
                     Id = x.Id,
-                    Nume = x.Nume,
-                    Prenume = x.Prenume
+                    Nume = x.Nume + " " + x.Prenume
                 }).Distinct().ToList();
         }
     [HttpGet("GetFindByNameForManager")]
@@ -204,8 +203,7 @@ namespace RandomProj.Controllers
             Select(x => new Angajat
             {
                 Id = x.Id,
-                Nume = x.Nume,
-                Prenume = x.Prenume
+                Nume = x.Nume + " " +x.Prenume
             }).Distinct().ToList();
     } }
 

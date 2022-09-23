@@ -33,8 +33,13 @@ namespace RandomProj.Controllers
             var user = _context.Angajats.FirstOrDefault(x => x.Id == angajatId);
             return _context.Angajats.Include(x => x.Functie)
                 .Where(x => x.IdEchipa == user.IdEchipa && x.IdFunctie==x.Functie.Id)
-                .Select(x => new Member { Nume = x.Nume, Prenume = x.Prenume, Functia = x.Functie.Nume, DataAngajarii=x.DataAngajarii }).ToList();
-         
+                .Select(x => new Member {
+                    Id= x.Id, 
+                    Nume = x.Nume, 
+                    Prenume = x.Prenume, 
+                    Functia = x.Functie.Nume, 
+                    DataAngajarii=x.DataAngajarii 
+                }).ToList();
         }
     }
 }

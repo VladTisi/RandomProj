@@ -30,7 +30,7 @@ namespace RandomProj.Controllers
             return _context.Concedius.
                 Include(x => x.Angajat).
                 Where(x => x.AngajatId == Id && x.StareConcediuId == 2).
-                Select(x => new AngajatConcediu() { StareConcediuId = x.StareConcediuId.Value, IdAngajatFromAngajat = x.Angajat.Id, DataInceput = x.DataInceput.HasValue ? x.DataInceput.Value : DateTime.Now, DataSfarsit = x.DataSfarsit.HasValue ? x.DataSfarsit.Value : DateTime.Now }).ToList();
+                Select(x => new AngajatConcediu() { StareConcediuId = x.StareConcediuId.Value, IdAngajatFromAngajat = x.Id, DataInceput = x.DataInceput.HasValue ? x.DataInceput.Value : DateTime.Now, DataSfarsit = x.DataSfarsit.HasValue ? x.DataSfarsit.Value : DateTime.Now }).ToList();
                                 
         }
 
@@ -41,7 +41,7 @@ namespace RandomProj.Controllers
             return _context.Concedius.
                 Include(x => x.Angajat).
                 Where(x => x.AngajatId == Id && x.StareConcediuId == 3).
-                Select(x => new AngajatConcediu() { StareConcediuId = x.StareConcediuId.Value, IdAngajatFromAngajat = x.Angajat.Id, DataInceput = x.DataInceput.HasValue ? x.DataInceput.Value : DateTime.Now, DataSfarsit = x.DataSfarsit.HasValue ? x.DataSfarsit.Value : DateTime.Now }).ToList();
+                Select(x => new AngajatConcediu() { StareConcediuId = x.StareConcediuId.Value, IdAngajatFromAngajat = x.Id, DataInceput = x.DataInceput.HasValue ? x.DataInceput.Value : DateTime.Now, DataSfarsit = x.DataSfarsit.HasValue ? x.DataSfarsit.Value : DateTime.Now }).ToList();
 
         }
 
@@ -52,7 +52,7 @@ namespace RandomProj.Controllers
             return _context.Concedius.
                 Include(x => x.Angajat).
                 Where(x => x.AngajatId == Id && x.StareConcediuId == 1).
-                Select(x => new AngajatConcediu() { StareConcediuId = x.StareConcediuId.Value, IdAngajatFromAngajat = x.Angajat.Id, DataInceput = x.DataInceput.HasValue ? x.DataInceput.Value : DateTime.Now, DataSfarsit = x.DataSfarsit.HasValue ? x.DataSfarsit.Value : DateTime.Now }).ToList();
+                Select(x => new AngajatConcediu() { StareConcediuId = x.StareConcediuId.Value, IdAngajatFromAngajat = x.Id, DataInceput = x.DataInceput.HasValue ? x.DataInceput.Value : DateTime.Now, DataSfarsit = x.DataSfarsit.HasValue ? x.DataSfarsit.Value : DateTime.Now }).ToList();
 
         }
 

@@ -64,7 +64,16 @@ namespace RandomProj.Controllers
                 .Select(x => new Angajat() { EsteAdmin = x.EsteAdmin, IdFunctie = x.IdFunctie, Id = x.Id })
                 .Where(x => x.Id == angajatid).ToList();
         }
+        [HttpGet("AllHolidays")]
 
+        public List<AngajatConcediu> AllHolidays(int Id)
+        {
+            return _context.Concedius.
+                Include(x => x.Angajat).
+                Where(x => x.AngajatId == Id).
+                Select(x => new AngajatConcediu() { StareConcediuId = x.StareConcediuId.Value, IdAngajatFromAngajat = x.Id, DataInceput = x.DataInceput.HasValue ? x.DataInceput.Value : DateTime.Now, DataSfarsit = x.DataSfarsit.HasValue ? x.DataSfarsit.Value : DateTime.Now }).ToList();
+
+        }
 
     }
 

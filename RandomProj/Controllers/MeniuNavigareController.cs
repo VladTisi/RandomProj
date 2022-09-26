@@ -33,7 +33,15 @@ namespace RandomProj.Controllers
 
             return _context.Angajats
                 .Include(x => x.Functie)
-                .Select(x => new Member() { Nume=x.Nume, Prenume=x.Prenume,Functia = x.Functie.Nume,DataAngajarii=(DateTime)x.DataAngajarii }).ToList();
+                .Select(x => new Member() 
+                { 
+                    Id=x.Id,
+                    Nume=x.Nume, 
+                    Prenume=x.Prenume,
+                    Functia = x.Functie.Nume,
+                    Poza = x.Poza,
+                    DataAngajarii=(DateTime)x.DataAngajarii
+                }).ToList();
         }
 
 

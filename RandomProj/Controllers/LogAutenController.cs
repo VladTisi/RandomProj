@@ -88,10 +88,12 @@ namespace RandomProj.Controllers
         [HttpGet("GeParolaDecriptata")]
         public string GetValid(string email)
         {
-            var user= _context.Logins.
-                Select(x => new Login() { Parola = x.Parola, Email = x.Email, AngajatId = x.AngajatId })
-                .Where(x => x.Email == $"{email}").FirstOrDefault();
-            return Decrypt(user.Parola);
+            var user= _context.Logins
+                .Where(x => x.Email == $"{email}")
+                .Select(x => x.Parola).FirstOrDefault();
+            if (user == null)
+                user = "";
+            return Decrypt(user);
         }
 
 

@@ -60,11 +60,10 @@ namespace RandomProj.Controllers
             _context.Logins.Where(x => x.AngajatId==angajatid).First().Parola=password;
             _context.SaveChanges();
         }
-        public static string Decrypt(string cipherText)
+        public static string Encrypt(string encryptString)
         {
-            string EncryptionKey = "0ram@1234xxxxxxxxxxtttttuuuuuiiiiio";  //we can change the code converstion key as per our requirement, but the decryption key should be same as encryption key    
-            cipherText = cipherText.Replace(" ", "+");
-            byte[] cipherBytes = Convert.FromBase64String(cipherText);
+            string EncryptionKey = "0ram@1234xxxxxxxxxxtttttuuuuuiiiiio";  //we can change the code converstion key as per our requirement    
+            byte[] clearBytes = Encoding.Unicode.GetBytes(encryptString);
             using (Aes encryptor = Aes.Create())
             {
                 Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(EncryptionKey, new byte[] {
@@ -74,32 +73,42 @@ namespace RandomProj.Controllers
                 encryptor.IV = pdb.GetBytes(16);
                 using (MemoryStream ms = new MemoryStream())
                 {
-                    using (CryptoStream cs = new CryptoStream(ms, encryptor.CreateDecryptor(), CryptoStreamMode.Write))
+                    using (CryptoStream cs = new CryptoStream(ms, encryptor.CreateEncryptor(), CryptoStreamMode.Write))
                     {
-                        cs.Write(cipherBytes, 0, cipherBytes.Length);
+                        cs.Write(clearBytes, 0, clearBytes.Length);
                         cs.Close();
                     }
-                    cipherText = Encoding.Unicode.GetString(ms.ToArray());
+                    encryptString = Convert.ToBase64String(ms.ToArray());
                 }
             }
-            return cipherText;
+            return encryptString;
         }
 
-        [HttpGet("GeParolaDecriptata")]
-        public string GetValid(string email)
+
+
+        [HttpGet("GetParolaDecriptata")]
+        public bool GetValid(string email, string parola)
         {
-            var user= _context.Logins
-                .Where(x => x.Email == $"{email}")
-                .Select(x => x.Parola).FirstOrDefault();
+            var user = _context.Logins
+                .FirstOrDefault(x => x.Email == email && x.Parola == Encrypt(parola));
             if (user == null)
-                user = "";
-            return Decrypt(user);
+                return false;
+            else return true;
+            
         }
 
 
-
-
-
+        [HttpGet("GetUser")]
+        public Angajat GetUser(string email)
+        {
+            var user= _context.Angajats
+                .Include(x=> x.Login)
+                .Where(x=> x.Login.Email == email)
+                .Select(x=> new Angajat() { Id=x.Id, EsteAdmin=x.EsteAdmin, IdFunctie=x.IdFunctie,IdEchipa=x.IdEchipa,ManagerId=x.ManagerId}).FirstOrDefault();
+            if (user == null)
+                return null;
+            else return user;
+        }
 
     }
 }

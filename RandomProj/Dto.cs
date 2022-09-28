@@ -12,6 +12,24 @@
 
     }
 
+    public class CreareCerereConcediu
+    {
+        public int TipConcediuId { get; set; }
+        public int stareConcediuId { get; set; }
+
+        public DateTime? Data_inceput { get; set; }
+
+        public DateTime? Data_sfarsit { get; set; }
+
+        public int angajatId { get; set; }
+
+        public int InlocuitorId { get; set; }
+
+        public string comentarii { get; set; } 
+
+
+    }
+
     public class Concediuedt
     {
         public int Id { get; set; }

@@ -84,6 +84,17 @@ namespace RandomProj.Controllers
             _context.Concedius.Add(new Concediu { TipConcediuId = TipConcediuId, DataInceput = Inceput, DataSfarsit = Sfarsit, StareConcediuId = 1, Comentarii = comentarii, AngajatId = angajatId, InlocuitorId=inlocuitorId });
             _context.SaveChanges();
         }
+        [HttpGet("GetTipConcediu")] 
+        public List<TipConcediu> getTipConcediu()
+        {
+            return _context.TipConcedius.Select(x => new TipConcediu {Id=x.Id,Nume=x.Nume }).ToList();
+        }
+        [HttpPost("InsertConcediuGQL")]
+        public void InsertConcediuGQL([FromBody]CreareCerereConcediu obj)
+        {
+            _context.Concedius.Add(new Concediu { TipConcediuId = obj.TipConcediuId, DataInceput = obj.Data_inceput, DataSfarsit = obj.Data_sfarsit, StareConcediuId = 1,Comentarii=obj.comentarii, AngajatId = obj.angajatId, InlocuitorId=obj.InlocuitorId });
+            _context.SaveChanges();
+        }
 
         //[HttpGet("GetAdminIdfunctie")]
 

@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RandomProj.Models;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace RandomProj.Controllers
 {
@@ -58,13 +60,55 @@ namespace RandomProj.Controllers
             _context.Logins.Where(x => x.AngajatId==angajatid).First().Parola=password;
             _context.SaveChanges();
         }
+        public static string Encrypt(string encryptString)
+        {
+            string EncryptionKey = "0ram@1234xxxxxxxxxxtttttuuuuuiiiiio";  //we can change the code converstion key as per our requirement    
+            byte[] clearBytes = Encoding.Unicode.GetBytes(encryptString);
+            using (Aes encryptor = Aes.Create())
+            {
+                Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(EncryptionKey, new byte[] {
+            0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76
+        });
+                encryptor.Key = pdb.GetBytes(32);
+                encryptor.IV = pdb.GetBytes(16);
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    using (CryptoStream cs = new CryptoStream(ms, encryptor.CreateEncryptor(), CryptoStreamMode.Write))
+                    {
+                        cs.Write(clearBytes, 0, clearBytes.Length);
+                        cs.Close();
+                    }
+                    encryptString = Convert.ToBase64String(ms.ToArray());
+                }
+            }
+            return encryptString;
+        }
 
 
 
+        [HttpGet("GetParolaDecriptata")]
+        public bool GetValid(string email, string parola)
+        {
+            var user = _context.Logins
+                .FirstOrDefault(x => x.Email == email && x.Parola == Encrypt(parola));
+            if (user == null)
+                return false;
+            else return true;
+            
+        }
 
 
-
-
+        [HttpGet("GetUser")]
+        public Angajat GetUser(string email)
+        {
+            var user= _context.Angajats
+                .Include(x=> x.Login)
+                .Where(x=> x.Login.Email == email)
+                .Select(x=> new Angajat() { Id=x.Id, EsteAdmin=x.EsteAdmin, IdFunctie=x.IdFunctie,IdEchipa=x.IdEchipa,ManagerId=x.ManagerId}).FirstOrDefault();
+            if (user == null)
+                return null;
+            else return user;
+        }
 
     }
 }

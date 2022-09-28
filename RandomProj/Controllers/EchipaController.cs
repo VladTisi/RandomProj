@@ -33,8 +33,67 @@ namespace RandomProj.Controllers
             var user = _context.Angajats.FirstOrDefault(x => x.Id == angajatId);
             return _context.Angajats.Include(x => x.Functie)
                 .Where(x => x.IdEchipa == user.IdEchipa && x.IdFunctie==x.Functie.Id)
-                .Select(x => new Member { Nume = x.Nume, Prenume = x.Prenume, Functia = x.Functie.Nume, DataAngajarii=x.DataAngajarii }).ToList();
-         
+                .Select(x => new Member {
+                    Id= x.Id, 
+                    Nume = x.Nume, 
+                    Prenume = x.Prenume, 
+                    Functia = x.Functie.Nume, 
+                    DataAngajarii=x.DataAngajarii 
+                }).ToList();
         }
+
+        [HttpGet("GetGot")]
+        public List<Member> GetGot()
+        {
+            return _context.Angajats
+                .Include(x => x.Functie)
+                .Where(x => x.IdEchipa ==2)
+                .Select(x => new Member
+                {
+                    Id = x.Id,
+                    Nume = x.Nume,
+                    Prenume = x.Prenume,
+                    Poza = x.Poza,
+                    Functia = x.Functie.Nume,
+                    DataAngajarii = x.DataAngajarii
+                }).ToList();
+        }
+
+
+        [HttpGet("GetStranger")]
+        public List<Member> GetStranger()
+        {
+            return _context.Angajats
+                .Include(x => x.Functie)
+                .Where(x => x.IdEchipa == 1)
+                .Select(x => new Member
+                {
+                    Id = x.Id,
+                    Nume = x.Nume,
+                    Prenume = x.Prenume,
+                    Poza = x.Poza,
+                    Functia = x.Functie.Nume,
+                    DataAngajarii = x.DataAngajarii
+                }).ToList();
+        }
+
+
+        [HttpGet("GetBB")]
+        public List<Member> GetBB()
+        {
+            return _context.Angajats
+                .Include(x => x.Functie)
+                .Where(x => x.IdEchipa == 3)
+                .Select(x => new Member
+                {
+                    Id = x.Id,
+                    Nume = x.Nume,
+                    Poza = x.Poza,
+                    Prenume = x.Prenume,
+                    Functia = x.Functie.Nume,
+                    DataAngajarii = x.DataAngajarii
+                }).ToList();
+        }
+
     }
 }
